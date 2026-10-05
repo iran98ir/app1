@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0D1B2E">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex, nofollow">
+<title>آفلاین — مشاوره همراه</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="application-name" content="مشاوره همراه">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مشاوره همراه">
+
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+
+<style>
+/* ==========================================================
+   متغیرها
+   ========================================================== */
+:root {
+  --navy-900: #0A1420;
+  --navy-800: #0D1B2E;
+  --navy-700: #122036;
+  --navy-600: #1B2A4A;
+  --navy-500: #2A3D5C;
+
+  --gold-100: #FFF3D6;
+  --gold-200: #FFE8C7;
+  --gold-300: #F2D89E;
+  --gold-400: #D4A84A;
+  --gold-500: #C4956A;
+  --gold-600: #A87B4E;
+  --gold-700: #8A5E34;
+
+  --text-100: #FFFFFF;
+  --text-200: #E8EDF5;
+  --text-300: #C8D0DC;
+  --text-400: #8A92A3;
+  --text-500: #5A6478;
+
+  --glow-gold: rgba(196, 149, 106, 0.35);
+  --glow-gold-strong: rgba(196, 149, 106, 0.55);
+
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 9999px;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 56px;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 180ms;
+  --dur-base: 280ms;
+  --dur-slow: 480ms;
+
+  --font: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* ==========================================================
+   ریست
+   ========================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-100);
+  background: var(--navy-900);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* ==========================================================
+   لایه‌های پس‌زمینه
+   ========================================================== */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(196, 149, 106, 0.15) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(42, 61, 92, 0.5) 0%, transparent 60%),
+    linear-gradient(180deg, var(--navy-900) 0%, var(--navy-800) 45%, var(--navy-900) 100%);
+}
+
+.bg-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(196, 149, 106, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 75%);
+}
+
+.bg-aurora {
+  position: absolute;
+  width: 120vmax;
+  height: 120vmax;
+  top: -60vmax;
+  left: -60vmax;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(196, 149, 106, 0.08) 60deg,
+    transparent 120deg,
+    rgba(212, 168, 74, 0.05) 200deg,
+    transparent 260deg,
+    rgba(196, 149, 106, 0.06) 320deg,
+    transparent 360deg
+  );
+  animation: auroraSpin 80s linear infinite;
+  filter: blur(60px);
+}
+
+@keyframes auroraSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.bg-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--gold-500);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--gold-500), 0 0 20px var(--gold-500);
+  opacity: 0;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+    transform: translateY(90vh) scale(1);
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-10vh) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================
+   صفحه
+   ========================================================== */
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding:
+    calc(var(--sp-6) + env(safe-area-inset-top, 0px))
+    var(--sp-5)
+    calc(var(--sp-6) + env(safe-area-inset-bottom, 0px));
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-5);
+  animation: cardEnter 900ms var(--ease) both;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================
+   لوگو
+   ========================================================== */
+.logo-wrap {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: logoEnter 1200ms 200ms var(--ease-spring) both;
+}
+
+@keyframes logoEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.logo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle, var(--glow-gold) 0%, transparent 55%);
+  filter: blur(24px);
+  animation: logoGlow 3.5s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+.logo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--gold-400) 90deg,
+    transparent 180deg,
+    var(--gold-600) 270deg,
+    transparent 360deg
+  );
+  animation: ringSpin 6s linear infinite;
+  z-index: 0;
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 63%);
+  mask: radial-gradient(circle, transparent 62%, black 63%);
+}
+
+@keyframes ringSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.logo-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 24px var(--glow-gold-strong));
+  animation: logoFloat 5s ease-in-out infinite;
+  opacity: 0.55;
+  filter: drop-shadow(0 6px 24px var(--glow-gold-strong)) grayscale(0.3);
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* ==========================================================
+   آیکون وضعیت (بالای لوگو)
+   ========================================================== */
+.status-badge {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--r-full);
+  background: rgba(184, 67, 58, 0.12);
+  border: 1.5px solid rgba(184, 67, 58, 0.35);
+  color: #FF8B7E;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  animation: badgeEnter 900ms 300ms var(--ease) both;
+}
+
+@keyframes badgeEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.status-badge .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FF8B7E;
+  box-shadow: 0 0 12px #FF8B7E;
+  animation: dotBlink 1.6s ease-in-out infinite;
+}
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ==========================================================
+   متن‌ها
+   ========================================================== */
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  animation: contentEnter 900ms 400ms var(--ease) both;
+}
+
+@keyframes contentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.brand h1 {
+  font-size: clamp(24px, 6vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--text-100);
+}
+
+.brand h1 .accent {
+  background: linear-gradient(180deg, var(--gold-200) 0%, var(--gold-500) 60%, var(--gold-600) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.brand p {
+  font-size: 14.5px;
+  font-weight: 400;
+  color: var(--text-300);
+  line-height: 1.9;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* ==========================================================
+   کارت راهنما (نکات)
+   ========================================================== */
+.tips {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--r-lg);
+  background: rgba(196, 149, 106, 0.05);
+  border: 1px solid rgba(196, 149, 106, 0.15);
+  animation: contentEnter 900ms 500ms var(--ease) both;
+}
+
+.tips-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold-400);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-1);
+}
+
+.tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-300);
+  line-height: 1.8;
+  text-align: right;
+}
+
+.tip-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-500);
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+/* ==========================================================
+   دکمه‌ها
+   ========================================================== */
+.actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+  animation: contentEnter 900ms 600ms var(--ease) both;
+}
+
+.btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: 16px 22px;
+  border: none;
+  border-radius: var(--r-md);
+  font-family: inherit;
+  font-size: 15.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-base) var(--ease);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 70%
+  );
+  transform: translateX(-150%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  animation: btnShine 900ms ease-out;
+}
+
+@keyframes btnShine {
+  from { transform: translateX(-150%); }
+  to   { transform: translateX(150%); }
+}
+
+.btn:active {
+  transform: scale(0.975);
+}
+
+.btn-icon {
+  font-size: 19px;
+  line-height: 1;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon.spin {
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.btn-text {
+  z-index: 2;
+}
+
+/* ===== دکمه اصلی (طلایی) ===== */
+.btn-primary {
+  color: var(--navy-900);
+  background: linear-gradient(180deg, var(--gold-400) 0%, var(--gold-500) 60%, var(--gold-600) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 8px 24px var(--glow-gold);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 12px 36px var(--glow-gold-strong);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+
+/* ===== دکمه ثانویه (شفاف) ===== */
+.btn-ghost {
+  color: var(--text-300);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(196, 149, 106, 0.2);
+  box-shadow: none;
+}
+
+.btn-ghost:hover {
+  background: rgba(196, 149, 106, 0.08);
+  border-color: rgba(196, 149, 106, 0.4);
+  color: var(--gold-300);
+}
+
+/* ==========================================================
+   وضعیت آنلاین (وقتی برگشت)
+   ========================================================== */
+.online-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  text-align: center;
+}
+
+.online-state.is-visible {
+  display: flex;
+  animation: contentEnter 500ms var(--ease) both;
+}
+
+.online-icon {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(45, 122, 95, 0.12);
+  border: 1.5px solid rgba(45, 122, 95, 0.4);
+  color: #7EE0BC;
+  font-size: 32px;
+  line-height: 1;
+  box-shadow: 0 0 40px rgba(45, 122, 95, 0.25);
+  animation: scaleIn 500ms var(--ease-spring) both;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.online-state h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-100);
+}
+
+.online-state p {
+  font-size: 13.5px;
+  color: var(--text-300);
+  line-height: 1.8;
+  max-width: 300px;
+}
+
+/* ==========================================================
+   مخفی‌سازی آفلاین در حالت آنلاین
+   ========================================================== */
+.offline-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-5);
+  width: 100%;
+}
+
+.offline-state.is-hidden {
+  display: none;
+}
+
+/* ==========================================================
+   فوتر
+   ========================================================== */
+.footer {
+  margin-top: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  font-size: 11.5px;
+  color: var(--text-400);
+  line-height: 1.8;
+  animation: contentEnter 900ms 700ms var(--ease) both;
+}
+
+.footer .version {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  background: rgba(196, 149, 106, 0.06);
+  border: 1px solid rgba(196, 149, 106, 0.15);
+  color: var(--gold-300);
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+/* ==========================================================
+   واکنش‌گرایی
+   ========================================================== */
+@media (max-width: 380px) {
+  .page { padding-inline: var(--sp-4); }
+  .logo-wrap { width: 108px; height: 108px; }
+  .brand h1 { font-size: 22px; }
+  .btn { padding: 14px 18px; font-size: 14.5px; }
+  .tips { padding: var(--sp-3) var(--sp-4); }
+  .tip { font-size: 12.5px; }
+}
+
+@media (min-width: 768px) {
+  .card { max-width: 460px; }
+  .logo-wrap { width: 148px; height: 148px; }
+  .brand h1 { font-size: 34px; }
+}
+
+/* ==========================================================
+   احترام به prefers-reduced-motion
+   ========================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================
+   انتخاب متن
+   ========================================================== */
+::selection {
+  background: var(--gold-500);
+  color: var(--navy-900);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ==========================================================
+     لایه‌های پس‌زمینه
+     ========================================================== -->
+<div class="bg-layer" aria-hidden="true">
+  <div class="bg-aurora"></div>
+  <div class="bg-particles" id="particles"></div>
+</div>
+
+<!-- ==========================================================
+     محتوای اصلی
+     ========================================================== -->
+<main class="page">
+  <div class="card">
+
+    <!-- ============================================================
+         حالت آفلاین
+         ============================================================ -->
+    <div class="offline-state" id="offlineState">
+
+      <!-- ===== لوگو ===== -->
+      <div class="logo-wrap">
+        <img src="icons/icon.svg"
+             alt="مشاوره همراه"
+             class="logo-img"
+             width="128"
+             height="128">
+      </div>
+
+      <!-- ===== نشان وضعیت ===== -->
+      <div class="status-badge">
+        <span class="dot"></span>
+        <span>اتصال قطع است</span>
+      </div>
+
+      <!-- ===== متن ===== -->
+      <div class="brand">
+        <h1>مشاوره <span class="accent">همراه</span></h1>
+        <p>
+          در حال حاضر به اینترنت متصل نیستید.<br>
+          لطفاً اتصال خود را بررسی کنید و مجدداً تلاش نمایید.
+        </p>
+      </div>
+
+      <!-- ===== کارت راهنما ===== -->
+      <div class="tips">
+        <div class="tips-title">راهنمای سریع</div>
+        <div class="tip">
+          <span class="tip-icon" aria-hidden="true">📶</span>
+          <span>وضعیت Wi-Fi یا داده موبایل خود را بررسی کنید.</span>
+        </div>
+        <div class="tip">
+          <span class="tip-icon" aria-hidden="true">✈️</span>
+          <span>مطمئن شوید حالت پرواز غیرفعال است.</span>
+        </div>
+        <div class="tip">
+          <span class="tip-icon" aria-hidden="true">🔄</span>
+          <span>پس از برقراری اتصال، روی «تلاش مجدد» بزنید.</span>
+        </div>
+      </div>
+
+      <!-- ===== دکمه‌ها ===== -->
+      <div class="actions">
+
+        <button type="button"
+                class="btn btn-primary"
+                id="retryBtn"
+                aria-label="تلاش مجدد برای اتصال">
+          <span class="btn-icon" id="retryIcon" aria-hidden="true">🔄</span>
+          <span class="btn-text">تلاش مجدد</span>
+        </button>
+
+        <a href="index.html"
+           class="btn btn-ghost"
+           aria-label="بازگشت به صفحه اصلی">
+          <span class="btn-icon" aria-hidden="true">🏠</span>
+          <span class="btn-text">بازگشت به صفحه اصلی</span>
+        </a>
+
+      </div>
+
+      <!-- ===== فوتر ===== -->
+      <footer class="footer">
+        <span class="version">نسخه ۱.۰.۰ — PWA</span>
+        <span>© ۱۴۰۱ مشاوره همراه</span>
+      </footer>
+
+    </div>
+
+    <!-- ============================================================
+         حالت آنلاین (وقتی برگشت)
+         ============================================================ -->
+    <div class="online-state" id="onlineState">
+      <div class="online-icon" aria-hidden="true">✓</div>
+      <h2>اتصال برقرار شد</h2>
+      <p>در حال بازگشت به اپلیکیشن...</p>
+    </div>
+
+  </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ==========================================================
+     المان‌ها
+     ========================================================== */
+  var offlineState = document.getElementById('offlineState');
+  var onlineState  = document.getElementById('onlineState');
+  var retryBtn     = document.getElementById('retryBtn');
+  var retryIcon    = document.getElementById('retryIcon');
+
+  /* ==========================================================
+     ذرات طلایی
+     ========================================================== */
+  (function initParticles() {
+    var container = document.getElementById('particles');
+    if (!container) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var count = window.innerWidth < 480 ? 10 : 18;
+
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < count; i++) {
+      var p = document.createElement('span');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (12 + Math.random() * 14) + 's';
+      p.style.animationDelay = (-Math.random() * 20) + 's';
+      p.style.opacity = (0.3 + Math.random() * 0.5).toString();
+
+      if (Math.random() > 0.5) {
+        p.style.background = '#FFE8C7';
+        p.style.boxShadow = '0 0 12px #FFE8C7, 0 0 24px #C4956A';
+      }
+      frag.appendChild(p);
+    }
+    container.appendChild(frag);
+  })();
+
+  /* ==========================================================
+     به‌روزرسانی وضعیت
+     ========================================================== */
+  function showOnlineState() {
+    if (offlineState) offlineState.classList.add('is-hidden');
+    if (onlineState)  onlineState.classList.add('is-visible');
+
+    // بازگشت خودکار به اپ بعد از ۱.۲ ثانیه
+    setTimeout(function () {
+      try {
+        // اگر داخل اپ هستیم، به app.html برمی‌گردیم
+        if (window.location.pathname.indexOf('app.html') === -1) {
+          window.location.href = 'app.html';
+        } else {
+          window.location.reload();
+        }
+      } catch (e) {
+        window.location.href = 'app.html';
+      }
+    }, 1200);
+  }
+
+  /* ==========================================================
+     رویداد آنلاین
+     ========================================================== */
+  window.addEventListener('online', function () {
+    showOnlineState();
+  });
+
+  /* ==========================================================
+     بررسی وضعیت فعلی
+     ========================================================== */
+  function checkConnection() {
+    // با navigator.onLine وضعیت اولیه را چک می‌کنیم
+    if (navigator.onLine) {
+      showOnlineState();
+      return true;
+    }
+    return false;
+  }
+
+  /* ==========================================================
+     دکمه تلاش مجدد
+     ========================================================== */
+  if (retryBtn) {
+    retryBtn.addEventListener('click', function () {
+
+      // اگر آفلاین است، پیام بده
+      if (!navigator.onLine) {
+        if (retryIcon) {
+          retryIcon.classList.add('spin');
+          setTimeout(function () {
+            retryIcon.classList.remove('spin');
+          }, 900);
+        }
+        return;
+      }
+
+      // حالت لودینگ
+      retryBtn.disabled = true;
+      if (retryIcon) retryIcon.classList.add('spin');
+
+      // شبیه‌سازی بررسی اتصال
+      setTimeout(function () {
+        // تلاش برای fetch یک فایل کوچک از خود PWA
+        fetch('manifest.json', { method: 'HEAD', cache: 'no-store' })
+          .then(function () {
+            showOnlineState();
+          })
+          .catch(function () {
+            retryBtn.disabled = false;
+            if (retryIcon) retryIcon.classList.remove('spin');
+          });
+      }, 400);
+    });
+  }
+
+  /* ==========================================================
+     بررسی دوره‌ای اتصال (هر ۳ ثانیه)
+     ========================================================== */
+  var checkInterval = setInterval(function () {
+    if (navigator.onLine) {
+      clearInterval(checkInterval);
+      showOnlineState();
+    }
+  }, 3000);
+
+  /* ==========================================================
+     بررسی اولیه پس از لود کامل
+     ========================================================== */
+  window.addEventListener('load', function () {
+    setTimeout(checkConnection, 300);
+  });
+
+  /* ==========================================================
+     مدیریت خطا
+     ========================================================== */
+  window.addEventListener('error', function (e) {
+    console.warn('[Offline Error]', e.message);
+  });
+
+})();
+</script>
+
+</body>
+</html>
