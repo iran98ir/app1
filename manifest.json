@@ -1,72 +1,29 @@
 {
-  "id": "/app1/",
+  "id": "mashvereh-hamrah-app",
   "name": "مشاوره همراه",
   "short_name": "مشاوره همراه",
   "description": "تأمین سرمایه برای هر هدف، تا سقف ۳۰ میلیارد ریال — سریع، مطمئن، بدون ضامن.",
   "lang": "fa-IR",
   "dir": "rtl",
-  "scope": "/app1/",
-  "start_url": "/app1/app.html",
+  "scope": "./",
+  "start_url": "./app.html",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone", "fullscreen", "minimal-ui"],
+  "display_override": ["standalone", "fullscreen", "minimal-ui"],
   "orientation": "portrait-primary",
   "background_color": "#0D1B2E",
   "theme_color": "#0D1B2E",
   "categories": ["finance", "business", "productivity"],
   "prefer_related_applications": false,
-  "launch_handler": {
-    "client_mode": "navigate-existing"
-  },
-  "handle_links": "preferred",
-  "edge_side_panel": {
-    "preferred_width": 400
-  },
   "icons": [
     {
-      "src": "icons/icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png",
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any"
     },
     {
       "src": "icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-256.png",
-      "sizes": "256x256",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-384.png",
-      "sizes": "384x384",
       "type": "image/png",
       "purpose": "any"
     },
@@ -77,38 +34,16 @@
       "purpose": "any"
     },
     {
-      "src": "icons/maskable-192.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "icons/maskable-512.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    },
-    {
-      "src": "icons/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshots/home-mobile.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "صفحه اصلی مشاوره همراه"
-    },
-    {
-      "src": "screenshots/home-desktop.png",
-      "sizes": "1920x1080",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "نمای دسکتاپ"
     }
   ],
   "shortcuts": [
@@ -116,27 +51,13 @@
       "name": "ثبت درخواست جدید",
       "short_name": "درخواست",
       "description": "ثبت سریع درخواست تأمین سرمایه",
-      "url": "/app1/app.html#request",
-      "icons": [
-        {
-          "src": "icons/shortcut-request.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "./app.html#request"
     },
     {
       "name": "پیام‌های من",
       "short_name": "پیام‌ها",
       "description": "مشاهده تیکت‌ها و پاسخ کارشناسان",
-      "url": "/app1/app.html#messages",
-      "icons": [
-        {
-          "src": "icons/shortcut-messages.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "./app.html#messages"
     }
   ]
 }
