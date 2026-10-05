@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 512 512"
+     width="512"
+     height="512"
+     role="img"
+     aria-label="مشاوره همراه">
+
+  <defs>
+    <radialGradient id="bgNavyGlow" cx="50%" cy="45%" r="70%">
+      <stop offset="0%"   stop-color="#1B2A4A"/>
+      <stop offset="55%"  stop-color="#122036"/>
+      <stop offset="100%" stop-color="#0A1420"/>
+    </radialGradient>
+
+    <radialGradient id="centerGold" cx="50%" cy="50%" r="55%">
+      <stop offset="0%"   stop-color="#C4956A" stop-opacity="0.42"/>
+      <stop offset="55%"  stop-color="#C4956A" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#C4956A" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="ringGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#FFE8C7"/>
+      <stop offset="35%"  stop-color="#F0D69A"/>
+      <stop offset="55%"  stop-color="#C4956A"/>
+      <stop offset="80%"  stop-color="#A87B4E"/>
+      <stop offset="100%" stop-color="#8A5E34"/>
+    </linearGradient>
+
+    <linearGradient id="vGold" x1="30%" y1="20%" x2="70%" y2="90%">
+      <stop offset="0%"   stop-color="#FFE8C7"/>
+      <stop offset="30%"  stop-color="#F2D89E"/>
+      <stop offset="60%"  stop-color="#C4956A"/>
+      <stop offset="100%" stop-color="#8A5E34"/>
+    </linearGradient>
+
+    <radialGradient id="dotGold" cx="50%" cy="40%" r="60%">
+      <stop offset="0%"   stop-color="#FFF3D6"/>
+      <stop offset="60%"  stop-color="#FFE8C7"/>
+      <stop offset="100%" stop-color="#C4956A"/>
+    </radialGradient>
+
+    <linearGradient id="lineGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#C4956A" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#FFE8C7"/>
+      <stop offset="100%" stop-color="#C4956A" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="vHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="glassShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="#0D1B2E"/>
+  <circle cx="256" cy="256" r="256" fill="url(#bgNavyGlow)"/>
+  <circle cx="256" cy="256" r="230" fill="url(#centerGold)"/>
+
+  <circle cx="256" cy="256" r="222"
+          fill="none"
+          stroke="url(#ringGold)"
+          stroke-width="10"/>
+
+  <circle cx="256" cy="256" r="196"
+          fill="none"
+          stroke="#C4956A"
+          stroke-width="1.5"
+          stroke-opacity="0.35"/>
+
+  <path d="M110,110 Q160,55 256,42"
+        fill="none"
+        stroke="url(#glassShine)"
+        stroke-width="6"
+        stroke-linecap="round"/>
+
+  <path d="M148 128
+           L256 380
+           L364 128
+           L332 128
+           L256 322
+           L180 128 Z"
+        fill="url(#vGold)"/>
+
+  <path d="M154 132
+           L256 366
+           L262 366
+           L160 132 Z"
+        fill="url(#vHighlight)"/>
+
+  <path d="M182 420 L330 420"
+        stroke="url(#lineGold)"
+        stroke-width="10"
+        stroke-linecap="round"
+        fill="none"/>
+
+  <circle cx="256" cy="86" r="26"
+          fill="#FFE8C7"
+          opacity="0.25"/>
+
+  <circle cx="256" cy="86" r="16"
+          fill="url(#dotGold)"/>
+
+  <ellipse cx="250" cy="80" rx="5" ry="4"
+           fill="#FFFFFF"
+           opacity="0.7"/>
+
+</svg>
