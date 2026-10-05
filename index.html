@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0D1B2E">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="تأمین سرمایه برای هر هدف، تا سقف ۳۰ میلیارد ریال — سریع، مطمئن، بدون ضامن.">
+<meta name="robots" content="index, follow">
+<title>مشاوره همراه — دانلود اپلیکیشن</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="application-name" content="مشاوره همراه">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مشاوره همراه">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="mask-icon" href="icons/icon.svg" color="#C4956A">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+
+<style>
+:root {
+  --navy-900: #0A1420;
+  --navy-800: #0D1B2E;
+  --navy-700: #122036;
+  --navy-600: #1B2A4A;
+  --navy-500: #2A3D5C;
+  --navy-400: #34496B;
+
+  --gold-100: #FFF3D6;
+  --gold-200: #FFE8C7;
+  --gold-300: #F2D89E;
+  --gold-400: #D4A84A;
+  --gold-500: #C4956A;
+  --gold-600: #A87B4E;
+  --gold-700: #8A5E34;
+
+  --text-100: #FFFFFF;
+  --text-200: #E8EDF5;
+  --text-300: #C8D0DC;
+  --text-400: #8A92A3;
+  --text-500: #5A6478;
+
+  --glow-gold: rgba(196, 149, 106, 0.35);
+  --glow-gold-strong: rgba(196, 149, 106, 0.55);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.35);
+
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 9999px;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 56px;
+  --sp-10: 72px;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 180ms;
+  --dur-base: 280ms;
+  --dur-slow: 480ms;
+
+  --font: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-100);
+  background: var(--navy-900);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196, 149, 106, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(42, 61, 92, 0.5) 0%, transparent 60%),
+    linear-gradient(180deg, var(--navy-900) 0%, var(--navy-800) 40%, var(--navy-900) 100%);
+}
+
+.bg-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(196, 149, 106, 0.09) 1px, transparent 1px);
+  background-size: 36px 36px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 75%);
+}
+
+.bg-aurora {
+  position: absolute;
+  width: 120vmax;
+  height: 120vmax;
+  top: -60vmax;
+  left: -60vmax;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(196, 149, 106, 0.08) 60deg,
+    transparent 120deg,
+    rgba(212, 168, 74, 0.05) 200deg,
+    transparent 260deg,
+    rgba(196, 149, 106, 0.06) 320deg,
+    transparent 360deg
+  );
+  animation: auroraSpin 80s linear infinite;
+  filter: blur(60px);
+}
+
+@keyframes auroraSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.bg-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--gold-500);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--gold-500), 0 0 20px var(--gold-500);
+  opacity: 0;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+    transform: translateY(90vh) scale(1);
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-10vh) scale(0.3);
+    opacity: 0;
+  }
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding:
+    calc(var(--sp-6) + env(safe-area-inset-top, 0px))
+    var(--sp-5)
+    calc(var(--sp-6) + env(safe-area-inset-bottom, 0px));
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-4);
+  animation: cardEnter 900ms var(--ease) both;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.logo-wrap {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-3);
+  animation: logoEnter 1200ms 200ms var(--ease-spring) both;
+}
+
+@keyframes logoEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.logo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle, var(--glow-gold) 0%, transparent 55%);
+  filter: blur(24px);
+  animation: logoGlow 3.5s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes logoGlow {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+.logo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--gold-400) 90deg,
+    transparent 180deg,
+    var(--gold-600) 270deg,
+    transparent 360deg
+  );
+  animation: ringSpin 6s linear infinite;
+  z-index: 0;
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 63%);
+  mask: radial-gradient(circle, transparent 62%, black 63%);
+}
+
+@keyframes ringSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.logo-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 24px var(--glow-gold-strong));
+  animation: logoFloat 5s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+.brand h1 {
+  font-size: clamp(26px, 6vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text-100);
+}
+
+.brand h1 .accent {
+  background: linear-gradient(180deg, var(--gold-200) 0%, var(--gold-500) 60%, var(--gold-600) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  position: relative;
+}
+
+.brand .tagline {
+  font-size: 14.5px;
+  font-weight: 400;
+  color: var(--text-300);
+  line-height: 1.9;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3) var(--sp-5);
+  margin-top: var(--sp-3);
+  margin-bottom: var(--sp-2);
+}
+
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-300);
+  white-space: nowrap;
+}
+
+.trust-item svg {
+  width: 14px;
+  height: 14px;
+  color: var(--gold-500);
+  flex-shrink: 0;
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+}
+
+.btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: 17px 22px;
+  border: none;
+  border-radius: var(--r-md);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-base) var(--ease);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 70%
+  );
+  transform: translateX(-150%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  animation: btnShine 900ms ease-out;
+}
+
+@keyframes btnShine {
+  from { transform: translateX(-150%); }
+  to   { transform: translateX(150%); }
+}
+
+.btn:active {
+  transform: scale(0.975);
+}
+
+.btn-icon {
+  font-size: 20px;
+  line-height: 1;
+  z-index: 2;
+}
+
+.btn-text {
+  z-index: 2;
+}
+
+.btn-primary {
+  color: var(--navy-900);
+  background: linear-gradient(180deg, var(--gold-400) 0%, var(--gold-500) 60%, var(--gold-600) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 8px 24px var(--glow-gold);
+  animation: btnPulseGold 3s ease-in-out infinite;
+}
+
+@keyframes btnPulseGold {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+      0 8px 24px var(--glow-gold);
+  }
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+      0 12px 36px var(--glow-gold-strong);
+  }
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+.btn-bazaar {
+  color: #1A1A1A;
+  background: linear-gradient(180deg, #FFD93D 0%, #FFCC00 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 8px 20px rgba(255, 204, 0, 0.28);
+}
+
+.btn-bazaar:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 12px 28px rgba(255, 204, 0, 0.4);
+}
+
+.btn-myket {
+  color: #FFFFFF;
+  background: linear-gradient(180deg, #FF5722 0%, #E64A19 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 8px 20px rgba(255, 87, 34, 0.35);
+}
+
+.btn-myket:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 12px 28px rgba(255, 87, 34, 0.5);
+}
+
+.btn.is-loading {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.btn.is-loading .btn-text::after {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  vertical-align: -2px;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.footer {
+  margin-top: var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-400);
+  line-height: 1.9;
+}
+
+.footer .version {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--r-full);
+  background: rgba(196, 149, 106, 0.08);
+  border: 1px solid rgba(196, 149, 106, 0.18);
+  color: var(--gold-300);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.footer .version::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-400);
+  box-shadow: 0 0 8px var(--gold-400);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+.footer .copyright {
+  font-size: 11.5px;
+  color: var(--text-500);
+}
+
+.toast {
+  position: fixed;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  max-width: calc(100vw - 40px);
+  padding: 14px 22px;
+  background: rgba(13, 27, 46, 0.95);
+  border: 1px solid rgba(196, 149, 106, 0.35);
+  border-radius: var(--r-md);
+  color: var(--text-100);
+  font-size: 13.5px;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg), 0 0 40px var(--glow-gold);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 9999;
+  opacity: 0;
+  transition: transform var(--dur-slow) var(--ease), opacity var(--dur-base) var(--ease);
+  pointer-events: none;
+}
+
+.toast.is-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+@media (max-width: 380px) {
+  .page { padding-inline: var(--sp-4); }
+  .logo-wrap { width: 120px; height: 120px; }
+  .brand h1 { font-size: 24px; }
+  .btn { padding: 15px 18px; font-size: 15px; }
+  .trust-row { gap: var(--sp-2) var(--sp-4); }
+  .trust-item { font-size: 11.5px; }
+}
+
+@media (min-width: 768px) {
+  .card { max-width: 480px; }
+  .logo-wrap { width: 160px; height: 160px; }
+  .brand h1 { font-size: 38px; }
+  .actions { margin-top: var(--sp-6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy-900); }
+::-webkit-scrollbar-thumb {
+  background: rgba(196, 149, 106, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 149, 106, 0.5);
+}
+
+::selection {
+  background: var(--gold-500);
+  color: var(--navy-900);
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-layer" aria-hidden="true">
+  <div class="bg-aurora"></div>
+  <div class="bg-particles" id="particles"></div>
+</div>
+
+<main class="page">
+  <div class="card">
+
+    <div class="logo-wrap">
+      <img src="icons/icon.svg"
+           alt="مشاوره همراه"
+           class="logo-img"
+           width="140"
+           height="140"
+           fetchpriority="high">
+    </div>
+
+    <div class="brand">
+      <h1>مشاوره <span class="accent">همراه</span></h1>
+      <p class="tagline">
+        تأمین سرمایه برای هر هدف، تا سقف ۳۰ میلیارد ریال
+        <br>
+        سریع، مطمئن، بدون ضامن
+      </p>
+    </div>
+
+    <div class="trust-row" role="list">
+      <span class="trust-item" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        بدون ضامن
+      </span>
+      <span class="trust-item" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        بدون بهره
+      </span>
+      <span class="trust-item" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        بدون اعتبارسنجی
+      </span>
+    </div>
+
+    <div class="actions">
+
+      <a href="app.html"
+         class="btn btn-primary"
+         id="installBtn"
+         rel="noopener"
+         aria-label="نصب اپلیکیشن مشاوره همراه">
+        <span class="btn-icon" aria-hidden="true">⬇️</span>
+        <span class="btn-text">نصب اپلیکیشن</span>
+      </a>
+
+      <a href="https://cafebazaar.ir/app/YOUR_PACKAGE_NAME"
+         class="btn btn-bazaar"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="دانلود از کافه بازار">
+        <span class="btn-icon" aria-hidden="true">🏪</span>
+        <span class="btn-text">دانلود از کافه بازار</span>
+      </a>
+
+      <a href="https://myket.ir/app/YOUR_PACKAGE_NAME"
+         class="btn btn-myket"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="دانلود از مایکت">
+        <span class="btn-icon" aria-hidden="true">🛍️</span>
+        <span class="btn-text">دانلود از مایکت</span>
+      </a>
+
+    </div>
+
+    <footer class="footer">
+      <span class="version">نسخه ۱.۰.۰ — PWA</span>
+      <span class="copyright">© ۱۴۰۱ مشاوره همراه — تمامی حقوق محفوظ است</span>
+    </footer>
+
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function initParticles() {
+  var container = document.getElementById('particles');
+  if (!container) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var count = window.innerWidth < 480 ? 12 : 20;
+
+  var frag = document.createDocumentFragment();
+  for (var i = 0; i < count; i++) {
+    var p = document.createElement('span');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (12 + Math.random() * 14) + 's';
+    p.style.animationDelay = (-Math.random() * 20) + 's';
+    p.style.opacity = (0.3 + Math.random() * 0.5).toString();
+
+    if (Math.random() > 0.5) {
+      p.style.background = '#FFE8C7';
+      p.style.boxShadow = '0 0 12px #FFE8C7, 0 0 24px #C4956A';
+    }
+    frag.appendChild(p);
+  }
+  container.appendChild(frag);
+})();
+
+var Toast = (function () {
+  var el = document.getElementById('toast');
+  var timer = null;
+
+  function show(message, duration) {
+    if (!el) return;
+    el.textContent = message;
+    el.classList.add('is-visible');
+
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      el.classList.remove('is-visible');
+    }, duration || 3200);
+  }
+
+  return { show: show };
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js', { scope: './' })
+      .then(function (reg) {
+        setInterval(function () {
+          reg.update().catch(function () {});
+        }, 60 * 60 * 1000);
+      })
+      .catch(function (err) {
+        console.warn('[SW] registration failed:', err);
+      });
+  });
+}
+
+(function initInstallPrompt() {
+  var installBtn = document.getElementById('installBtn');
+  var deferredPrompt = null;
+
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    if (installBtn) {
+      var txt = installBtn.querySelector('.btn-text');
+      if (txt) txt.textContent = 'نصب سریع روی گوشی';
+    }
+  });
+
+  if (installBtn) {
+    installBtn.addEventListener('click', function (e) {
+      if (deferredPrompt) {
+        e.preventDefault();
+
+        installBtn.classList.add('is-loading');
+        deferredPrompt.prompt();
+
+        deferredPrompt.userChoice.then(function (choice) {
+          installBtn.classList.remove('is-loading');
+
+          if (choice.outcome === 'accepted') {
+            Toast.show('✅ اپلیکیشن با موفقیت نصب شد');
+          } else {
+            Toast.show('نصب لغو شد');
+          }
+          deferredPrompt = null;
+
+          var txt = installBtn.querySelector('.btn-text');
+          if (txt) txt.textContent = 'نصب اپلیکیشن';
+        });
+      }
+    });
+  }
+
+  window.addEventListener('appinstalled', function () {
+    Toast.show('🎉 مشاوره همراه نصب شد');
+    deferredPrompt = null;
+  });
+})();
+
+(function initIOSHint() {
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  var isStandalone = window.navigator.standalone === true ||
+                     window.matchMedia('(display-mode: standalone)').matches;
+
+  if (isIOS && !isStandalone) {
+    var installBtn = document.getElementById('installBtn');
+    if (installBtn) {
+      installBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        Toast.show('در Safari روی «اشتراک‌گذاری» بزنید و «افزودن به صفحه اصلی» را انتخاب کنید', 5500);
+      });
+    }
+  }
+})();
+
+(function initStandaloneDetect() {
+  var isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia('(display-mode: fullscreen)').matches ||
+    window.navigator.standalone === true;
+
+  if (isStandalone) {
+    var installBtn = document.getElementById('installBtn');
+    if (installBtn) installBtn.style.display = 'none';
+  }
+
+  window.matchMedia('(display-mode: standalone)').addEventListener('change', function (e) {
+    if (e.matches) {
+      var btn = document.getElementById('installBtn');
+      if (btn) btn.style.display = 'none';
+    }
+  });
+})();
+
+(function preventDoubleTapZoom() {
+  var lastTouch = 0;
+  document.addEventListener('touchend', function (e) {
+    var now = Date.now();
+    if (now - lastTouch <= 300) {
+      e.preventDefault();
+    }
+    lastTouch = now;
+  }, { passive: false });
+})();
+
+window.addEventListener('online', function () {
+  Toast.show('✅ اتصال برقرار شد');
+});
+
+window.addEventListener('offline', function () {
+  Toast.show('⚠️ اتصال اینترنت قطع است');
+});
+</script>
+
+</body>
+      </html>
