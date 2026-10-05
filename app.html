@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no, maximum-scale=1">
+<meta name="theme-color" content="#0D1B2E">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="اپلیکیشن مشاوره همراه — تأمین سرمایه برای هر هدف.">
+<meta name="robots" content="noindex, nofollow">
+<title>مشاوره همراه</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="application-name" content="مشاوره همراه">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مشاوره همراه">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="mask-icon" href="icons/icon.svg" color="#C4956A">
+
+<style>
+/* ==========================================================
+   ریست و پایه
+   ========================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0D1B2E;
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+  color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ==========================================================
+   صحنه اصلی
+   ========================================================== */
+.stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0D1B2E;
+}
+
+/* ==========================================================
+   iframe سایت
+   ========================================================== */
+.site-frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  display: block;
+  background: #F5F0EB;
+  opacity: 0;
+  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-frame.is-ready {
+  opacity: 1;
+}
+
+/* ==========================================================
+   صفحه اسپلش (لوکس)
+   ========================================================== */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(196, 149, 106, 0.14) 0%, transparent 55%),
+    linear-gradient(180deg, #0A1420 0%, #0D1B2E 50%, #0A1420 100%);
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), visibility 600ms;
+}
+
+.splash::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(196, 149, 106, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 75%);
+  pointer-events: none;
+}
+
+.splash.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ==========================================================
+   لوگو در اسپلش
+   ========================================================== */
+.splash-logo {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: logoEnter 900ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes logoEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-15deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.splash-logo::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle, rgba(196, 149, 106, 0.45) 0%, transparent 55%);
+  filter: blur(24px);
+  animation: logoGlow 3.2s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes logoGlow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.12); }
+}
+
+.splash-logo::after {
+  content: '';
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    #D4A84A 90deg,
+    transparent 180deg,
+    #A87B4E 270deg,
+    transparent 360deg
+  );
+  animation: ringSpin 6s linear infinite;
+  z-index: 0;
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 63%);
+  mask: radial-gradient(circle, transparent 62%, black 63%);
+}
+
+@keyframes ringSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.splash-logo img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 28px rgba(196, 149, 106, 0.55));
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* ==========================================================
+   برند در اسپلش
+   ========================================================== */
+.splash-brand {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: brandEnter 900ms 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes brandEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.splash-brand h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: #FFFFFF;
+}
+
+.splash-brand h1 .accent {
+  background: linear-gradient(180deg, #FFE8C7 0%, #C4956A 60%, #A87B4E 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.splash-brand p {
+  font-size: 13px;
+  font-weight: 400;
+  color: #C8D0DC;
+  line-height: 1.8;
+  text-align: center;
+  max-width: 260px;
+}
+
+/* ==========================================================
+   نشانگر بارگذاری (سه نقطه)
+   ========================================================== */
+.splash-loader {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  animation: loaderEnter 900ms 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes loaderEnter {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.splash-loader span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #C4956A;
+  box-shadow: 0 0 12px rgba(196, 149, 106, 0.8);
+  animation: dotBounce 1.4s ease-in-out infinite;
+}
+
+.splash-loader span:nth-child(1) { animation-delay: 0s; }
+.splash-loader span:nth-child(2) { animation-delay: 0.18s; }
+.splash-loader span:nth-child(3) { animation-delay: 0.36s; }
+
+@keyframes dotBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================
+   نوار پیشرفت بالای صفحه (لودینگ iframe)
+   ========================================================== */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  z-index: 90;
+  background: rgba(196, 149, 106, 0.08);
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.progress-bar.is-active {
+  opacity: 1;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #C4956A 30%,
+    #FFE8C7 50%,
+    #C4956A 70%,
+    transparent 100%
+  );
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(196, 149, 106, 0.8);
+  animation: progressSlide 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes progressSlide {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-250%); }
+}
+
+/* ==========================================================
+   صفحه آفلاین
+   ========================================================== */
+.offline {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(196, 149, 106, 0.12) 0%, transparent 55%),
+    linear-gradient(180deg, #0A1420 0%, #0D1B2E 50%, #0A1420 100%);
+  text-align: center;
+}
+
+.offline.is-visible {
+  display: flex;
+  animation: fadeIn 400ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.offline-icon {
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(196, 149, 106, 0.08);
+  border: 1.5px solid rgba(196, 149, 106, 0.3);
+  color: #C4956A;
+  font-size: 40px;
+  line-height: 1;
+  animation: offlinePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes offlinePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(196, 149, 106, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 24px rgba(196, 149, 106, 0);
+  }
+}
+
+.offline h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.offline p {
+  font-size: 14px;
+  color: #C8D0DC;
+  line-height: 1.9;
+  max-width: 300px;
+}
+
+.offline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 15px 28px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #D4A84A 0%, #C4956A 60%, #A87B4E 100%);
+  color: #0D1B2E;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 8px 24px rgba(196, 149, 106, 0.35);
+  transition: transform 180ms ease, box-shadow 280ms ease;
+}
+
+.offline-btn:active {
+  transform: scale(0.97);
+}
+
+.offline-btn:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 12px 32px rgba(196, 149, 106, 0.55);
+}
+
+/* ==========================================================
+   توست
+   ========================================================== */
+.toast {
+  position: fixed;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  max-width: calc(100vw - 40px);
+  padding: 13px 20px;
+  background: rgba(13, 27, 46, 0.96);
+  border: 1px solid rgba(196, 149, 106, 0.35);
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.35),
+    0 0 40px rgba(196, 149, 106, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 9999;
+  opacity: 0;
+  transition:
+    transform 480ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 280ms ease;
+  pointer-events: none;
+}
+
+.toast.is-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================
+   اسکرول‌بار
+   ========================================================== */
+::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ==========================================================
+   انیمیشن حذف در prefers-reduced-motion
+   ========================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================
+   نمایشگرهای کوچک
+   ========================================================== */
+@media (max-width: 380px) {
+  .splash-logo { width: 110px; height: 110px; }
+  .splash-brand h1 { font-size: 22px; }
+  .splash-brand p { font-size: 12px; }
+  .offline-icon { width: 72px; height: 72px; font-size: 32px; }
+  .offline h2 { font-size: 19px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ==========================================================
+     نوار پیشرفت
+     ========================================================== -->
+<div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+
+<!-- ==========================================================
+     اسپلش
+     ========================================================== -->
+<div class="splash" id="splash">
+  <div class="splash-logo">
+    <img src="icons/icon.svg" alt="مشاوره همراه" width="140" height="140" fetchpriority="high">
+  </div>
+
+  <div class="splash-brand">
+    <h1>مشاوره <span class="accent">همراه</span></h1>
+    <p>تأمین سرمایه برای هر هدف<br>تا سقف ۳۰ میلیارد ریال</p>
+  </div>
+
+  <div class="splash-loader" aria-label="در حال بارگذاری">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<!-- ==========================================================
+     صحنه اصلی
+     ========================================================== -->
+<div class="stage">
+  <iframe
+    id="siteFrame"
+    class="site-frame"
+    src="https://rosha-24.ir/app/app1/main.php"
+    title="مشاوره همراه"
+    allow="fullscreen; clipboard-read; clipboard-write; camera; microphone; geolocation; payment"
+    allowfullscreen
+    referrerpolicy="no-referrer-when-downgrade"
+    loading="eager"
+    importance="high">
+  </iframe>
+</div>
+
+<!-- ==========================================================
+     صفحه آفلاین
+     ========================================================== -->
+<div class="offline" id="offlineScreen" role="alert">
+  <div class="offline-icon" aria-hidden="true">⚠️</div>
+  <h2>اتصال اینترنت قطع است</h2>
+  <p>برای استفاده از اپلیکیشن، لطفاً اتصال اینترنت خود را بررسی کنید.</p>
+  <button type="button" class="offline-btn" id="retryBtn">
+    <span>🔄</span>
+    <span>تلاش مجدد</span>
+  </button>
+</div>
+
+<!-- ==========================================================
+     توست
+     ========================================================== -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ==========================================================
+     المان‌ها
+     ========================================================== */
+  var splash      = document.getElementById('splash');
+  var siteFrame   = document.getElementById('siteFrame');
+  var progressBar = document.getElementById('progressBar');
+  var offlineScr  = document.getElementById('offlineScreen');
+  var retryBtn    = document.getElementById('retryBtn');
+  var toastEl     = document.getElementById('toast');
+
+  /* ==========================================================
+     توست
+     ========================================================== */
+  var toastTimer = null;
+  function showToast(msg, duration) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastEl.classList.remove('is-visible');
+    }, duration || 3000);
+  }
+
+  /* ==========================================================
+     ثبت Service Worker
+     ========================================================== */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js', { scope: './' })
+        .then(function (reg) {
+          // چک آپدیت هر ساعت
+          setInterval(function () {
+            reg.update().catch(function () {});
+          }, 60 * 60 * 1000);
+
+          // اگر آپدیت پیدا شد
+          reg.addEventListener('updatefound', function () {
+            var newWorker = reg.installing;
+            if (!newWorker) return;
+
+            newWorker.addEventListener('statechange', function () {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                showToast('🔄 نسخه جدید آماده است. برای فعال‌سازی، اپ را ببندید و باز کنید.', 5000);
+              }
+            });
+          });
+        })
+        .catch(function (err) {
+          console.warn('[SW] registration failed:', err);
+        });
+    });
+  }
+
+  /* ==========================================================
+     مدیریت لودینگ iframe
+     ========================================================== */
+  var splashHidden = false;
+
+  function hideSplash() {
+    if (splashHidden) return;
+    splashHidden = true;
+
+    if (splash) {
+      splash.classList.add('is-hidden');
+      setTimeout(function () {
+        if (splash && splash.parentNode) {
+          splash.parentNode.removeChild(splash);
+        }
+      }, 700);
+    }
+
+    if (siteFrame) {
+      siteFrame.classList.add('is-ready');
+    }
+
+    if (progressBar) {
+      progressBar.classList.remove('is-active');
+    }
+  }
+
+  function showProgress() {
+    if (progressBar) progressBar.classList.add('is-active');
+  }
+
+  // ===== رویدادهای iframe =====
+  if (siteFrame) {
+
+    // اگر سایت سریع لود شد
+    siteFrame.addEventListener('load', function () {
+      // کمی تأخیر برای اطمینان از رندر کامل
+      setTimeout(hideSplash, 350);
+    });
+
+    // اگر خطا داد (مثلاً سایت در دسترس نبود)
+    siteFrame.addEventListener('error', function () {
+      // همچنان اسپلش را پنهان کن تا کاربر بن‌بست نشود
+      setTimeout(hideSplash, 800);
+    });
+
+    // تایم‌اوت اطمینان — اگر تا ۱۲ ثانیه لود نشد، به هر حال نشان بده
+    setTimeout(function () {
+      if (!splashHidden) {
+        showProgress();
+      }
+    }, 3000);
+
+    setTimeout(function () {
+      hideSplash();
+    }, 12000);
+  }
+
+  // ===== محافظت: اگر iframe تا ۱۵ ثانیه لود نشد، اسپلش را ببند =====
+  setTimeout(hideSplash, 15000);
+
+  /* ==========================================================
+     تشخیص آفلاین / آنلاین
+     ========================================================== */
+  function updateOnlineStatus() {
+    if (navigator.onLine) {
+      if (offlineScr) offlineScr.classList.remove('is-visible');
+      if (siteFrame && !siteFrame.src) {
+        siteFrame.src = 'https://rosha-24.ir/app/app1/main.php';
+      }
+    } else {
+      if (offlineScr) offlineScr.classList.add('is-visible');
+      showToast('⚠️ اتصال اینترنت قطع شد', 4000);
+    }
+  }
+
+  window.addEventListener('online',  function () {
+    updateOnlineStatus();
+    showToast('✅ اتصال برقرار شد');
+  });
+
+  window.addEventListener('offline', function () {
+    updateOnlineStatus();
+  });
+
+  // ===== دکمه تلاش مجدد =====
+  if (retryBtn) {
+    retryBtn.addEventListener('click', function () {
+      if (!navigator.onLine) {
+        showToast('هنوز آفلاین هستید', 2500);
+        return;
+      }
+
+      if (offlineScr) offlineScr.classList.remove('is-visible');
+
+      if (siteFrame) {
+        // رفرش iframe با تغییر src
+        var src = siteFrame.src;
+        siteFrame.src = 'about:blank';
+        setTimeout(function () {
+          siteFrame.src = src;
+        }, 100);
+      }
+    });
+  }
+
+  // اجرای اولیه
+  updateOnlineStatus();
+
+  /* ==========================================================
+     جلوگیری از زوم دوبار انگشت در iOS
+     ========================================================== */
+  var lastTouch = 0;
+  document.addEventListener('touchend', function (e) {
+    var now = Date.now();
+    if (now - lastTouch <= 300) {
+      e.preventDefault();
+    }
+    lastTouch = now;
+  }, { passive: false });
+
+  /* ==========================================================
+     تشخیص نصب بودن — پیشنهاد نصب اگر در مرورگر باز است
+     ========================================================== */
+  var isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia('(display-mode: fullscreen)').matches ||
+    window.navigator.standalone === true;
+
+  if (!isStandalone) {
+    setTimeout(function () {
+      showToast('💡 برای تجربه بهتر، اپ را روی صفحه اصلی نصب کنید', 4500);
+    }, 2500);
+  }
+
+  /* ==========================================================
+     ذخیره و بازیابی موقعیت اسکرول (اختیاری)
+     ========================================================== */
+  window.addEventListener('pagehide', function () {
+    try {
+      sessionStorage.setItem('mh_lastVisit', Date.now().toString());
+    } catch (e) {}
+  });
+
+  /* ==========================================================
+     مدیریت خطای کلی
+     ========================================================== */
+  window.addEventListener('error', function (e) {
+    console.warn('[App Error]', e.message);
+  });
+
+  window.addEventListener('unhandledrejection', function (e) {
+    console.warn('[Unhandled Promise]', e.reason);
+  });
+
+  /* ==========================================================
+     پیام از Service Worker
+     ========================================================== */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener('message', function (event) {
+      var data = event.data || {};
+      if (data.type === 'CACHE_CLEARED') {
+        showToast('✅ حافظه پاک شد');
+      }
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
